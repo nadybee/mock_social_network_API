@@ -1,15 +1,19 @@
 const router = require("express").Router()
-const db = require('../../server')
+
 
 
 router.get('/', (req, res) => {
-    db.collection('users')
-      .find({ featured: true })
-      .toArray((err, results) => {
-        if (err) throw err;
-        res.send(results);
-      });
-  });
+    res.send('getting users')
+})
+
+// router.get('/', (req, res) => {
+//     db.collection('users')
+//       .find({ featured: true })
+//       .toArray((err, results) => {
+//         if (err) throw err;
+//         res.send(results);
+//       });
+//   });
   
 
 // app.post('/create', (req, res) => {

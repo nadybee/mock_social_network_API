@@ -1,27 +1,17 @@
 const path = require('path');
 const express = require('express');
-const routes = require('./controllers');
-const mongodb = require('mongodb').MongoClient;
+const routes = require('./routes');
+const morgan = require('morgan')
+const colors = require('colors')
+const connectDB = require('./config/db');
+const { connect } = require('http2');
 
 
+connectDB() 
 const app = express()
 
 const PORT = process.env.PORT || 3001
-const connectionStringURI = `mongodb://127.0.0.1:27017/social_mock`;
 
-let db;
-
-mongodb.connect(
-    connectionStringURI,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    (err, client) => {
-      db = client.db();
-      app.listen(PORT, () => {
-        console.log(`Example app listening at http://localhost:${PORT}`);
-      });
-    }
-  );
-  
 
   
 
@@ -29,5 +19,17 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-module.exports = {db}
+
+app.listen(PORT, () => {
+    console.log(`Example app listening at http://localhost:${PORT}`.blue.bold);
+          });
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+    console.log(`Error: ${err.message}`.red);
+    // Close server & exit process
+    server.close(() => process.exit(1));
+  });          
+
+
 
