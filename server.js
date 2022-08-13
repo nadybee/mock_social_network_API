@@ -1,10 +1,8 @@
 const path = require('path');
-const dotenv = require('dotenv')
 const express = require('express');
 const routes = require('./controllers');
 const mongodb = require('mongodb').MongoClient;
 
-dotenv.config({path})
 
 const app = express()
 
