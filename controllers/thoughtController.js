@@ -23,7 +23,7 @@ module.exports = {
     Thought.create(req.body)
       .then((thought) => {
         let updatedValue =  User.findOneAndUpdate(
-          {_id: req.body.userId},
+          {username: req.body.username},
           {$push: {thoughts: thought._id}},
           {new: true}
         )

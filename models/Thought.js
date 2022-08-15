@@ -19,12 +19,9 @@ const thoughtSchema = new Schema(
       required: [true, "please add username"],
     },
 
-    user_id: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
+ 
   },
-  
+
   {
     toJSON: {
       virtuals: true,
