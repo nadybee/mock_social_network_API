@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3001
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
-app.use(morgan('dev'))
+app.use(morgan('common'))
 
 
 app.listen(PORT, () => {
@@ -26,11 +26,11 @@ app.listen(PORT, () => {
           });
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.message}`.red);
-    // Close server & exit process
-    server.close(() => process.exit(1));
-  });          
+// process.on('unhandledRejection', (err, promise) => {
+//     console.log(`Error: ${err.message}`.red);
+//     // Close server & exit process
+//     server.close(() => process.exit(1));
+//   });          
 
 
 
