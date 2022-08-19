@@ -7,27 +7,26 @@ module.exports = {
       .then((thoughts) => res.json({success: true, count: thoughts.length, data: thoughts }))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a single user
+ // Get a single thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'No user with that ID' })
+          ? res.status(404).json({ message: 'No thought with that ID' })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new user
+   // create a new thought
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => {
-        let updatedValue =  User.findOneAndUpdate(
-          {username: req.body.username},
-          {$push: {thoughts: thought._id}},
+     return  User.findOneAndUpdate(
+          {_id: req.body.userId},
+          {$addToSet: {thoughts: thought._id}},
           {new: true}
         )
-        console.log(updatedValue)
       })
       .then((user) =>
         !user
@@ -40,7 +39,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  //Update a user and associated apps
+   //Update a user and associated apps
 
   updateThought(req, res) {
     Thought.findOneAndUpdate ({_id:req.params.thoughtId}, req.body, {
@@ -60,7 +59,7 @@ module.exports = {
 
   // Delete a user and associated apps
   deleteThought(req, res) {
-    User.findOneAndDelete({ _id: req.params.thoughtId })
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>{
         if (!thought) {
            res.status(404).json({ message: 'No thought with that ID' })
@@ -70,4 +69,5 @@ module.exports = {
       .then(() => res.json({ message: 'thought deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
+
 };

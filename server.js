@@ -25,6 +25,7 @@ app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`.blue.bold);
           });
 
+
 // Handle unhandled promise rejections
 // process.on('unhandledRejection', (err, promise) => {
 //     console.log(`Error: ${err.message}`.red);
