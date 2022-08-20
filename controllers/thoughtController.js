@@ -7,25 +7,25 @@ module.exports = {
       .then((thoughts) => res.json({success: true, count: thoughts.length, data: thoughts }))
       .catch((err) => res.status(500).json(err));
   },
- // Get a single thought
+  // Get a single user
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'No thought with that ID' })
+          ? res.status(404).json({ message: 'No user with that ID' })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
-   // create a new thought
+  // create a new user
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => {
      return  User.findOneAndUpdate(
           {_id: req.body.userId},
           {$addToSet: {thoughts: thought._id}},
-          {new: true}
+          { runValidators: true, new: true }
         )
       })
       .then((user) =>
@@ -39,7 +39,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-   //Update a user and associated apps
+  //Update a user and associated apps
 
   updateThought(req, res) {
     Thought.findOneAndUpdate ({_id:req.params.thoughtId}, req.body, {
@@ -68,6 +68,41 @@ module.exports = {
       )
       .then(() => res.json({ message: 'thought deleted!' }))
       .catch((err) => res.status(500).json(err));
+  },
+
+  createReaction(req, res) {
+    Thought.findOneAndUpdate ({_id:req.params.thoughtId}, req.body, {
+        new:true,
+        runValidators: true
+    })
+    .then((thought) =>{
+        if (!thought) {
+           res.status(404).json({ message: 'No thought with that ID' })
+        }
+    }
+      )
+      .then(() => res.json({ message: 'Reaction added to thought!' }))
+      .catch((err) => res.status(500).json(err));
+  
+  },
+
+  deleteReaction(req, res) {
+    Thought.findOneAndUpdate (
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+      
+     
+  )
+  .then((thought) =>{
+      if (!thought) {
+         res.status(404).json({ message: 'reaction not found' })
+      }
+  }
+    )
+    .then(() => res.json({ message: 'Reaction Deleted!' }))
+    .catch((err) => res.status(500).json(err));
+
   },
 
 };

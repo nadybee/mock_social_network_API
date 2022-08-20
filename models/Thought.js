@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose")
 const Reaction = require("./Reaction")
 
+
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -12,22 +13,34 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (timestamp) => timestamp.toLocaleString(),
     },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => timestamp.toLocaleString(),
+    },
+    // createdAt: {
+    //   type: Date,
+    //   default : Date.now,
+    // // format: moment.format('MMMM Do YYYY, h:mm:ss a'),
+
+    // },
 
     username: {
       type: String,
       required: [true, "please add username"],
     },
 
-    reactions: [Reaction]
-
- 
+    reactions: [Reaction],
   },
 
   {
     toJSON: {
+      getters: true,
       virtuals: true,
     },
+    timestamps: true,
     id: false,
   }
 )
@@ -36,4 +49,4 @@ thoughtSchema.virtual("reactionCount").get(function () {
 })
 
 const Thought = model("Thought", thoughtSchema)
-module.exports = Thought;
+module.exports = Thought

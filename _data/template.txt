@@ -1,0 +1,30 @@
+//for posting new user
+
+{
+	"username": "happy",
+	"email": "happygilmore@gmail.com"
+}
+
+// for posting on api/thoughts. Add userId by selecting nadybee's _id
+
+
+	{
+		"userId": "",
+		"thoughtText": "Here is a thought I posted from insomnia",
+		"username": "nadybee"
+	}
+
+
+
+// for posting api/thoughts.:id to post a reaction, grab nadybee _id
+
+{
+	"reactions": 
+
+	{
+		"userId": "",
+		"reactionBody": "Totally agree with this thought!",
+		"username": "nadybee"
+	}
+
+}
