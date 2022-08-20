@@ -1,5 +1,5 @@
 const { Schema, Types } = require("mongoose")
-
+//schema only
 const reactionSchema = new Schema(
 {
   reactionId: {
@@ -15,6 +15,7 @@ const reactionSchema = new Schema(
     type: String,
     required: true,
   },
+  //formats dates to more readable with getter
   createdAt: {
     type: Date,
     default: Date.now,

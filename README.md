@@ -17,16 +17,16 @@ This is a mock backend for a social network using mongoDB and mongoose. Users ca
 
   ## Usage
 This application can only run on your local host, with mongoDB already installed. Routes can be tested using an application like Insommia. See the walk through videos to see the application in use.
+- [walk through video part 1](https://drive.google.com/file/d/19hgjT2A6s2Y0Whae1lF0aN4479K3TkcM/view)
+- [walk though video part 2](https://drive.google.com/file/d/1ySdx3dEr0R4JmEyV0po-8X31sct5zGbp/view)
 
   ## Installation
   - First clone the respository.
-  - Create your own `.env` file using the .env_example as a template.
-  - open the `db` folder and connect to mysql. Run the command `source schema.sql` to create the database.
-  - now open the `server.js` folder and install the dependencies by running `npm install`.
-  - run `npm start` or `npm run dev` to start up the server and create the models.
-  - kill the server and run `npm run seed` to seed the database with the table seeds.
-  - now the application is seeded and ready to run again.
-  - enjoy! 
+  - Install the dependancies with `npm install`
+  - Run `npm run dev` to start the application.
+  - Optionally  you can seed the database by stopping the server and running `node seeder -i` 
+  - Run the server again with `npm run dev`
+  - You can now use the routes in Insomnia. You can use the .json templates found in in the `_data` folder. 
 
   ## Contributors
   Natalie Fairbourne
@@ -40,6 +40,5 @@ This application can only run on your local host, with mongoDB already installed
   - [GitHub](https://github.com/nadybee)
 
   ## License
-   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
-
+    none
 

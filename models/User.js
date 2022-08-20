@@ -43,6 +43,7 @@ const userSchema = new Schema(
   }
 );
 
+//BONUS: this was trying to delete associated thoughts to a deleted user
 userSchema.pre('deleteOne', { document: false, query: true }, async function() {
  
     const doc = await User.findOne(this.getFilter());
@@ -50,6 +51,7 @@ userSchema.pre('deleteOne', { document: false, query: true }, async function() {
     await Thought.deleteMany({ username: doc.username });
 })
 
+//add # friend count
 userSchema.virtual("friendCount").get(function () {
   return this.friends.length
 })

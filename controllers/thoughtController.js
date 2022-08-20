@@ -18,10 +18,11 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new user
+  // create a new thought
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => {
+        //updates associated document
      return  User.findOneAndUpdate(
           {_id: req.body.userId},
           {$addToSet: {thoughts: thought._id}},
@@ -39,7 +40,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  //Update a user and associated apps
+  //Update a thought and associated documents
 
   updateThought(req, res) {
     Thought.findOneAndUpdate ({_id:req.params.thoughtId}, req.body, {
@@ -57,7 +58,7 @@ module.exports = {
   
   },
 
-  // Delete a user and associated apps
+  // Delete a thought and associated apps
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>{
@@ -70,6 +71,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
+  //add a reaction
   createReaction(req, res) {
     Thought.findOneAndUpdate ({_id:req.params.thoughtId}, req.body, {
         new:true,
@@ -85,7 +87,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   
   },
-
+//delete a reaction
   deleteReaction(req, res) {
     Thought.findOneAndUpdate (
       { _id: req.params.thoughtId },

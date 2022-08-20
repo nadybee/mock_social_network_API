@@ -10,6 +10,7 @@ const thoughtSchema = new Schema(
       required: [true, "please add a thought"],
       maxLength: [280, "Max length is 280 characters"],
     },
+    //formats dates to more readable with getter
     createdAt: {
       type: Date,
       default: Date.now,
@@ -20,12 +21,7 @@ const thoughtSchema = new Schema(
       default: Date.now,
       get: (timestamp) => timestamp.toLocaleString(),
     },
-    // createdAt: {
-    //   type: Date,
-    //   default : Date.now,
-    // // format: moment.format('MMMM Do YYYY, h:mm:ss a'),
-
-    // },
+  
 
     username: {
       type: String,
@@ -44,6 +40,8 @@ const thoughtSchema = new Schema(
     id: false,
   }
 )
+
+//adds # of reactions
 thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length
 })
